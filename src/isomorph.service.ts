@@ -1,4 +1,28 @@
 export class IsomorphService {
+	toArr(obj) {
+		let arr = [];
+
+		if (obj) {
+			if (Array.isArray(obj)) {
+				arr = Array.from(obj);
+			} else {
+				for (let key in obj) {
+					arr.push(obj[key]);
+				}
+			}
+		}
+
+		return arr;
+	}
+
+	async sleep(delay = 0) {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve();
+			}, delay);
+		});
+	}
+
 	isDefined(value) {
 		return typeof value !== 'undefined';
 	}
