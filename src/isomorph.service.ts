@@ -128,4 +128,10 @@ export class IsomorphService {
 			}
 		}
 	}
+	
+	mergeSets(set1: Set<any>, set2: Set<any>) {
+		for (let elem of set2) {
+			set1.add(elem);
+		}
+	}
 }
