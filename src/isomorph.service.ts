@@ -80,7 +80,7 @@ export class IsomorphService {
 	delFromArr(arr: any[], elem) {
 		const index = arr.indexOf(elem);
 
-		if (index > -1) {
+		if (index !== -1) {
 			arr.splice(index, 1);
 		}
 	}
