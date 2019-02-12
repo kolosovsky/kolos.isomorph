@@ -134,4 +134,16 @@ export class IsomorphService {
 			set1.add(elem);
 		}
 	}
+
+	counters = {};
+
+	counter(name: string) {
+		if (this.counters[name]) {
+			this.counters[name]++;
+		} else {
+			this.counters[name] = 1;
+		}
+
+		console.log(`counter ${name}: ${this.counters[name]}`);
+	}
 }
