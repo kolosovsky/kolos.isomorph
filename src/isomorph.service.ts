@@ -137,13 +137,15 @@ export class IsomorphService {
 
 	counters = {};
 
-	counter(name: string) {
+	counter(name: string, silently?: boolean) {
 		if (this.counters[name]) {
 			this.counters[name]++;
 		} else {
 			this.counters[name] = 1;
 		}
 
-		console.log(`counter ${name}: ${this.counters[name]}`);
+		if (!silently) {
+			console.log(`counter ${name}: ${this.counters[name]}`);
+		}
 	}
 }
