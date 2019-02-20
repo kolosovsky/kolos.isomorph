@@ -148,4 +148,8 @@ export class IsomorphService {
 			console.log(`counter ${name}: ${this.counters[name]}`);
 		}
 	}
+
+	logState(obj: any) {
+		console.log(JSON.parse(JSON.stringify(obj)));
+	}
 }
