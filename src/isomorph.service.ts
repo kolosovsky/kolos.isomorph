@@ -147,6 +147,8 @@ export class IsomorphService {
 		if (!silently) {
 			console.log(`counter ${name}: ${this.counters[name]}`);
 		}
+
+		return this.counters[name];
 	}
 
 	logState(obj: any) {
