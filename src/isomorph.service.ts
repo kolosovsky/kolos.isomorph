@@ -144,11 +144,13 @@ export class IsomorphService {
 			this.counters[name] = 1;
 		}
 
+		let message = `counter ${name}: ${this.counters[name]}`;
+
 		if (!silently) {
-			console.log(`counter ${name}: ${this.counters[name]}`);
+			console.log(message);
 		}
 
-		return this.counters[name];
+		return message;
 	}
 
 	logState(obj: any) {
