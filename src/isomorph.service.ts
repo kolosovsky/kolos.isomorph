@@ -105,7 +105,7 @@ export class IsomorphService {
 		return num % 2 === 0;
 	}
 
-	makeUnixTimeStamp(date) {
+	makeUnixTimeStamp(date = new Date()) {
 		return Math.round(+date / 1000);
 	}
 
