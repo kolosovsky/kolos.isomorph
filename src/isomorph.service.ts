@@ -16,7 +16,7 @@ export class IsomorphService {
 	}
 
 	async sleep(delay = 0) {
-		return new Promise((resolve) => {
+		return new NativePromise((resolve) => {
 			setTimeout(() => {
 				resolve();
 			}, delay);
