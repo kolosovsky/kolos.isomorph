@@ -156,4 +156,12 @@ export class IsomorphService {
 	logState(obj: any) {
 		console.log(JSON.parse(JSON.stringify(obj)));
 	}
+
+	randomIntFromInterval(min, max) { // min and max included
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	}
+
+	randomArrElem(arr: any[]) {
+		return arr[this.randomIntFromInterval(0, arr.length - 1)];
+	}
 }
