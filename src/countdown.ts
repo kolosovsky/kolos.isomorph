@@ -12,6 +12,7 @@ export class Countdown {
 	protected interval: any;
 	protected milliseconds: number;
 	protected tickCallbacks = new Set();
+	protected finishCallbacks = new Set();
 
 	constructor(params: ICountdownParams) {
 		this.milliseconds = params.milliseconds;
@@ -33,6 +34,7 @@ export class Countdown {
 		this.clearInterval();
 
 		this.tickCallbacks.clear();
+		this.finishCallbacks.clear();
 	}
 
 	clearInterval() {
@@ -66,6 +68,10 @@ export class Countdown {
 
 		if (this.milliseconds === 0) {
 			this.clearInterval();
+
+			for (let callback of this.finishCallbacks) {
+				callback();
+			}
 		}
 	}
 
@@ -75,6 +81,14 @@ export class Countdown {
 
 	removeTickCallback(callback) {
 		this.tickCallbacks.delete(callback);
+	}
+
+	addFinishCallback(callback) {
+		this.finishCallbacks.add(callback);
+	}
+
+	removeFinishCallback(callback) {
+		this.finishCallbacks.delete(callback);
 	}
 }
 
