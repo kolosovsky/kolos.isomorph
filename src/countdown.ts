@@ -13,14 +13,23 @@ export class Countdown {
 	protected milliseconds: number;
 	protected tickCallbacks = new Set();
 	protected finishCallbacks = new Set();
+	protected destroyResolver?();
+
+	destroyPromise: Promise<void>;
 
 	constructor(params: ICountdownParams) {
 		this.milliseconds = params.milliseconds;
+
+		this.destroyPromise = new Promise((resolve, reject) => {
+			this.destroyResolver = resolve;
+		});
 
 		this.run();
 	}
 
 	run() {
+		this.calcUnits();
+
 		this.interval = setInterval(() => {
 			this.tick();
 		}, MILLISECONDS_PER_SECOND);
@@ -31,6 +40,8 @@ export class Countdown {
 	}
 
 	destroy() {
+		this.destroyResolver();
+
 		this.clearInterval();
 
 		this.tickCallbacks.clear();
@@ -46,6 +57,22 @@ export class Countdown {
 	tick() {
 		this.milliseconds = Math.max(this.milliseconds - MILLISECONDS_PER_SECOND, 0);
 
+		this.calcUnits();
+
+		for (let callback of this.tickCallbacks) {
+			callback();
+		}
+
+		if (this.milliseconds === 0) {
+			this.clearInterval();
+
+			for (let callback of this.finishCallbacks) {
+				callback();
+			}
+		}
+	}
+
+	calcUnits() {
 		let milliseconds = this.milliseconds;
 
 		this.days = Math.floor(milliseconds / MILLISECONDS_PER_DAY);
@@ -61,18 +88,6 @@ export class Countdown {
 		milliseconds -= this.minutes * MILLISECONDS_PER_MINUTE;
 
 		this.seconds = Math.floor(milliseconds / MILLISECONDS_PER_SECOND);
-
-		for (let callback of this.tickCallbacks) {
-			callback();
-		}
-
-		if (this.milliseconds === 0) {
-			this.clearInterval();
-
-			for (let callback of this.finishCallbacks) {
-				callback();
-			}
-		}
 	}
 
 	addTickCallback(callback) {
