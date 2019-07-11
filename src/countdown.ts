@@ -10,10 +10,12 @@ export class Countdown {
 	seconds?: number;
 
 	protected interval: any;
-	protected milliseconds: number;
 	protected tickCallbacks = new Set();
 	protected finishCallbacks = new Set();
 	protected destroyResolver?();
+
+	milliseconds: number;
+	prevMilliseconds: number;
 
 	destroyPromise: Promise<void>;
 
@@ -55,6 +57,8 @@ export class Countdown {
 	}
 
 	tick() {
+		this.prevMilliseconds = this.milliseconds;
+
 		this.milliseconds = Math.max(this.milliseconds - MILLISECONDS_PER_SECOND, 0);
 
 		this.calcUnits();
