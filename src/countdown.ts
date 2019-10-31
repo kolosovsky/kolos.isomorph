@@ -10,8 +10,8 @@ export class Countdown {
 	seconds?: number;
 
 	protected interval: any;
-	protected tickCallbacks = new Set();
-	protected finishCallbacks = new Set();
+	protected tickCallbacks: Set<Function> = new Set();
+	protected finishCallbacks: Set<Function> = new Set();
 	protected destroyResolver?();
 
 	milliseconds: number;
