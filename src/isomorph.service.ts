@@ -85,6 +85,10 @@ export class IsomorphService {
 		}
 	}
 
+	getLast(arr: any[]) {
+		return arr[arr.length - 1];
+	}
+
 	getFirstProp(list) {
 		return list[this.getFirstKey(list)];
 	}
