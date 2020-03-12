@@ -168,4 +168,24 @@ export class IsomorphService {
 	randomArrElem(arr: any[]) {
 		return arr[this.randomIntFromInterval(0, arr.length - 1)];
 	}
+
+	escapeHTML(html: string) {
+		// https://github.com/lodash/lodash/blob/9d11b48ce5758df247607dc837a98cbfe449784a/escape.js
+
+		const htmlEscapes = {
+			'&': '&amp',
+			'<': '&lt',
+			'>': '&gt',
+			'"': '&quot',
+			"'": '&#39'
+		};
+
+		/** Used to match HTML entities and HTML characters. */
+		const reUnescapedHtml = /[&<>"']/g;
+		const reHasUnescapedHtml = RegExp(reUnescapedHtml.source);
+
+		return (html && reHasUnescapedHtml.test(html))
+			? html.replace(reUnescapedHtml, (chr) => htmlEscapes[chr])
+			: html;
+	}
 }
