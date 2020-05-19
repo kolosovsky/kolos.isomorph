@@ -33,13 +33,7 @@ export class IsomorphService {
 		return value != null && (type === 'object' || type === 'function');
 	}
 
-	loop(num, func) {
-		for (let i = 0; i < num; i++) {
-			func(i);
-		}
-	}
-
-	loopReverse(num, func) {
+	timesReverse(num, func) {
 		for (let i = num; i > 0; i--) {
 			func(i);
 		}
